@@ -22,32 +22,37 @@ const MovieName = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
-
-const InfoColumn=styled.div`
-    display:flex;
-    flex-direction:row;
-    justify-content:space-between;
+const InfoColumn = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
-const MovieInfo=styled.span`
-    font-size:16px;
-    font-weight:500;
-    color:black;
-    text-transform:capitalize;
-
+const MovieInfo = styled.span`
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+  white-space: nowrap;
+  overflow: hidden;
+  text-transform: capitalize;
+  text-overflow: ellipsis;
 `;
-
 const MovieComponent = (props) => {
-    return (  
-        <MovieContainer>
-            <CoverImage src="https://images.complex.com/complex/image/upload/c_fill,dpr_auto,f_auto,fl_lossy,g_face,q_auto,w_1280/wjnhpz3osrai5aningjl.jpg"/>
-            <MovieName>TITANIC</MovieName>
-            <InfoColumn>
-                <MovieInfo>Year:  2009</MovieInfo>
-                <MovieInfo>Type:  Movie</MovieInfo>
-            </InfoColumn>
-            </MovieContainer> 
-       
-    );
+  const { Title, Year, imdbID, Type, Poster } = props.movie;
+
+  return (
+    <MovieContainer
+      onClick={() => {
+        props.onMovieSelect(imdbID);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }}
+    >
+      <CoverImage src={Poster} alt={Title} />
+      <MovieName>{Title}</MovieName>
+      <InfoColumn>
+        <MovieInfo>Year : {Year}</MovieInfo>
+        <MovieInfo>Type : {Type}</MovieInfo>
+      </InfoColumn>
+    </MovieContainer>
+  );
 };
- 
 export default MovieComponent;
